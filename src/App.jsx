@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, deleteUser } from "./features/Users";
+import { addUser, deleteUser, updateUsername } from "./features/Users";
 
 function App() {
   const dispatch = useDispatch();
@@ -8,9 +8,10 @@ function App() {
 
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
+  const [newUsername, setNewUsername] = useState("");
   return (
     <>
-      <div className="bg-slate-900 h-screen ">
+      <div className="bg-slate-900 h-full pb-5">
         {/* Make user */}
         <div className="py-2 pt-7">
           <input
@@ -51,7 +52,7 @@ function App() {
             return (
               <div
                 key={usr.id}
-                className="p-2 m-5 rounded-md bg-cyan-700 text-black w-6/12"
+                className="p-2 m-5 rounded-md bg-cyan-700 text-black w-8/12"
               >
                 <span className="font-semibold">Name: </span>
                 <span> {usr.name} | </span>
@@ -65,6 +66,27 @@ function App() {
                 >
                   Delete
                 </button>
+                {/* Update Process */}
+                <div className="mt-2">
+                  <input
+                    className="ml-3 p-1 rounded"
+                    type="text"
+                    placeholder="New Username..."
+                    onChange={(e) => {
+                      setNewUsername(e.target.value);
+                    }}
+                  />
+                  <button
+                    className="ml-4 rounded p-1 bg-teal-400"
+                    onClick={() =>
+                      dispatch(
+                        updateUsername({ id: usr.id, username: newUsername })
+                      )
+                    }
+                  >
+                    Update
+                  </button>
+                </div>
               </div>
             );
           })}
