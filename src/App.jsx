@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "./features/Users";
+import { addUser, deleteUser } from "./features/Users";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +57,14 @@ function App() {
                 <span> {usr.name} | </span>
                 <span className="font-semibold">Username: </span>
                 <span>{usr.username}</span>
+                <button
+                  className="ml-4 rounded p-1 bg-sky-400"
+                  onClick={() => {
+                    dispatch(deleteUser({ id: usr.id }));
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             );
           })}
